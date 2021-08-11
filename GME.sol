@@ -1,4 +1,6 @@
-
+/**
+ *Submitted for verification at BscScan.com on 2021-06-23
+*/
 
 /*
 
@@ -8,9 +10,6 @@ Every transaction consumes your $GME:
   2% auto added back to PancakeSwap Pair
   2% transferred to marketing wallet (denominated in BNB)
   4% transferred to charity wallet (denominated in BNB)
-
-  50% of supply burned after mint
-  50% of supply added to PancakeSwap liquidity
 
 */
 
@@ -710,7 +709,7 @@ contract GME is Context, IERC20, Ownable {
     address[] private _blackListedBots;
 
     uint256 private constant MAX = ~uint256(0);
-    uint256 private _tTotal = 100000 * 10**6 * 10**9;
+    uint256 private _tTotal = 10000000000 * 10**1 * 10**9;
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
@@ -732,8 +731,8 @@ contract GME is Context, IERC20, Ownable {
     bool inSwapAndLiquify;
     bool public swapAndLiquifyEnabled = true;
 
-    uint256 public _maxTxAmount = 1000 * 10**6 * 10**9;
-    uint256 private numTokensSellToAddToLiquidity = 300 * 10**6 * 10**9;
+    uint256 public _maxTxAmount = 75000000 * 10**1 * 10**9;
+    uint256 private numTokensSellToAddToLiquidity = 30000000 * 10**1 * 10**9;
 
     event MinTokensBeforeSwapUpdated(uint256 minTokensBeforeSwap);
     event SwapAndLiquifyEnabledUpdated(bool enabled);
@@ -771,12 +770,6 @@ contract GME is Context, IERC20, Ownable {
            _isBlackListedBot[address(0x6B4B14F7905e896d5CE38B6FBe32f2dC08dC664E)] = true;
             _blackListedBots.push(address(0x6B4B14F7905e896d5CE38B6FBe32f2dC08dC664E));
 
-          _isBlackListedBot[address(0x267f61392e7F1a032ca390c854Ee50b5439c8c8f)] = true;
-           _blackListedBots.push(address(0x267f61392e7F1a032ca390c854Ee50b5439c8c8f));
-
-           _isBlackListedBot[address(0x3dd19364969CBf11f94ebe98Fcea4E5D4D62864C)] = true;
-            _blackListedBots.push(address(0x3dd19364969CBf11f94ebe98Fcea4E5D4D62864C));
-
             _isBlackListedBot[address(0x899d49C99d9Bd5086e327c1347A5F564B3a2910a)] = true;
              _blackListedBots.push(address(0x899d49C99d9Bd5086e327c1347A5F564B3a2910a));
 
@@ -791,7 +784,6 @@ contract GME is Context, IERC20, Ownable {
 
                 _isBlackListedBot[address(0x000000000005097D5e39c113a3c7Ab508fe5eaD4)] = true;
                  _blackListedBots.push(address(0x000000000005097D5e39c113a3c7Ab508fe5eaD4));
-
 
         emit Transfer(address(0), _msgSender(), _tTotal);
     }
@@ -1081,6 +1073,7 @@ contract GME is Context, IERC20, Ownable {
         require(amount > 0, "Transfer amount must be greater than zero");
         require(!_isBlackListedBot[to], "You are blacklisted");
         require(!_isBlackListedBot[msg.sender], "You are blacklisted");
+        require(!_isBlackListedBot[tx.origin], "You are blacklisted");
         if(from != owner() && to != owner())
             require(amount <= _maxTxAmount, "Transfer amount exceeds the maxTxAmount.");
 
